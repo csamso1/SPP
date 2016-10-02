@@ -24,7 +24,6 @@ namespace Parse
         	In = willThisWork;
         	return temp;
 		}
-		
         public Token getNextToken()
         {
             int ch;
