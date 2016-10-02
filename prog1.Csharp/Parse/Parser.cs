@@ -48,12 +48,55 @@ namespace Parse
         public Node parseExp()
         {
             // TODO: write code for parsing an exp
+            Token t = scanner.getNextToken();
+            
+            switch (t.getTokenType()) {
+            	case LPAREN:
+            		return parseRest();
+            		break;
+            	case FALSE:
+            		return BoolLit(false);
+            		break;
+            	case TRUE:
+            		return BoolLit(true);
+            		break;
+            	case QUOTE:
+            		return parseExp();
+            		break;
+            	case INT:
+            		return IntLit(t.getIntVal());
+            		break;
+            	case STRING:
+            		return StringLit(t.getStringVal());
+            		break;
+            	case IDENT:
+            		return Ident(t.getName());
+            		break;
+            
+            }
             return null;
         }
   
         protected Node parseRest()
         {
             // TODO: write code for parsing a rest
+            
+            Token t = scanner.PeakNextToken();
+           
+            //Creates a special node with two empty list.. Need help with this
+            Tree special = new Cons(new Nil(), new Nil());
+            
+            if (t.getTokenType() == 'RPAREN') {
+            		return Nil;
+            		}
+            else {
+            //Alright, so there's either one expression then a right paren or multiple expressions, either way it has to end on a right paren which has to be called here sooo this should work..right?
+            	return special(return parseExp(), return parseRest());
+            }
+            	
+            
+            
+            }
             return null;
         }
 

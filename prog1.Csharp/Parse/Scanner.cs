@@ -17,7 +17,13 @@ namespace Parse
         public Scanner(TextReader i) { In = i; }
   
         // TODO: Add any other methods you need
-
+        
+        public Token peakNextToken() {
+        	TextReader willThisWork = In;
+        	Token temp = getNextToken();
+        	In = willThisWork;
+        	return temp;
+		}
         public Token getNextToken()
         {
             int ch;
