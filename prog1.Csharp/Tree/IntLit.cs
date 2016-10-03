@@ -21,5 +21,8 @@ namespace Tree
 
             Console.WriteLine(intVal);
         }
+        
+        public virtual bool isNumber() { return true; }
+        public virtual int getNumber() { return intVal; }
     }
 }

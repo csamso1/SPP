@@ -24,5 +24,8 @@ namespace Tree
             else
                 Console.WriteLine("#f");
         }
+        
+        public virtual bool isBool()   { return true; }
+        public virtual bool getBool()   { return boolVal; }
     }
 }

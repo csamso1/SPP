@@ -1,5 +1,5 @@
 // Node -- Base class for parse tree node objects
-
+using System;
 namespace Tree
 {
     public class Node
@@ -39,6 +39,15 @@ namespace Tree
         public virtual bool isSymbol() { return false; }  // Ident
         public virtual bool isNull()   { return false; }  // Nil
         public virtual bool isPair()   { return false; }  // Cons
+        
+        
+        
+        public virtual bool getBool()   { return false; }  // BoolLit
+        public virtual int getNumber() { return 0; }  // IntLit
+        public virtual String getString() { return ""; }  // StringLit
+        public virtual String getSymbol() { return ""; }  // Ident
+        public virtual bool getNull()   { return false; }  // Nil
+        public virtual bool getPair()   { return false; }  // Cons
 
         // TODO: Report an error in these default methods and implement them
         // in class Cons.  After setCar, a Cons cell needs to be `parsed' again

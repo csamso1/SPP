@@ -6,6 +6,8 @@ namespace Tree
 {
     public class Nil : Node
     {
+    
+    	private Boolean status;
         public Nil() { }
   
         public override void print(int n)
@@ -23,5 +25,8 @@ namespace Tree
             else
                 Console.WriteLine("()");
         }
+        public void setStatus(Boolean s) {status = s; }
+        public virtual bool isNull()   { return true; } 
+        public virtual bool getStatus()   { return status; }
     }
 }

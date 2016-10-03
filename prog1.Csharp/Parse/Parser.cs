@@ -48,56 +48,55 @@ namespace Parse
         public Node parseExp()
         {
             // TODO: write code for parsing an exp
+            Boolean quoteStatus = true;
             Token t = scanner.getNextToken();
             
-            switch (t.getTokenType()) {
-            	case LPAREN:
+            switch (t.getType()) {
+            	case TokenType.LPAREN:
             		return parseRest();
-            		break;
-            	case FALSE:
-            		return BoolLit(false);
-            		break;
-            	case TRUE:
-            		return BoolLit(true);
-            		break;
-            	case QUOTE:
-            		return parseExp();
-            		break;
-            	case INT:
-            		return IntLit(t.getIntVal());
-            		break;
-            	case STRING:
-            		return StringLit(t.getStringVal());
-            		break;
-            	case IDENT:
-            		return Ident(t.getName());
-            		break;
+            	case TokenType.FALSE:
+            		return new BoolLit(false);
+            	case TokenType.TRUE:
+            		return new BoolLit(true);
+            	case TokenType.QUOTE:
+            		quoteStatus = !quoteStatus;
+            		if (quoteStatus) {
+            		 	return new Cons(new StringLit("\'"), parseExp());
+            		 } else {
+            			return new Cons(new StringLit("\'2"), parseExp()); 
+            		}
+            	case TokenType.DOT:
+            		return new Cons(new StringLit("."), parseExp());
+            	case TokenType.INT:
+            		return new IntLit(t.getIntVal());
+            	case TokenType.STRING:
+            		return new StringLit(t.getStringVal());
+            	case TokenType.IDENT:
+            		return new Ident(t.getName());
+	            default:
+	            	return null;
             
-            }
-            return null;
-        }
-  
+            } 
+            //return null;
+  }
         protected Node parseRest()
         {
             // TODO: write code for parsing a rest
             
-            Token t = scanner.PeakNextToken();
+            Scanner letsTryThis = scanner;
+            Token t = letsTryThis.getNextToken();
            
-            //Creates a special node with two empty list.. Need help with this
-            Tree special = new Cons(new Nil(), new Nil());
-            
-            if (t.getTokenType() == 'RPAREN') {
-            		return Nil;
-            		}
-            else {
-            //Alright, so there's either one expression then a right paren or multiple expressions, either way it has to end on a right paren which has to be called here sooo this should work..right?
-            	return special(return parseExp(), return parseRest());
+            if (t.getType() == TokenType.RPAREN)  
+            {
+            	return new Nil();
             }
-            	
             
-            
+            else 
+            {
+            	return new Cons(parseExp(), parseRest());
             }
-            return null;
+            
+            //return null;
         }
 
         // TODO: Add any additional methods you might need.

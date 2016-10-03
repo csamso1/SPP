@@ -21,6 +21,10 @@ namespace Tree
 
             Console.WriteLine("\"" + stringVal + "\"");
         }
+    
+		public virtual bool isString() { return true; }
+		
+		public virtual String getString() { return stringVal; }
     }
 }
 

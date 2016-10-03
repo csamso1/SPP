@@ -21,6 +21,9 @@ namespace Tree
 
             Console.WriteLine(name);
         }
+        
+		public virtual bool isSymbol() { return true; }
+		public virtual String getSymbol() { return name; } 
     }
 }
 

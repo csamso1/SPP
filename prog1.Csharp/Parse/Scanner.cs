@@ -18,6 +18,14 @@ namespace Parse
   
         // TODO: Add any other methods you need
         
+        public Boolean isspace(int nextChar) {
+        	if (nextChar == 32)
+        	 { return true; }
+        	 else {
+        	 return false;
+        	 }
+        }
+        
         public Token peakNextToken() {
         	TextReader willThisWork = In;
         	Token temp = getNextToken();
@@ -48,12 +56,12 @@ namespace Parse
                 }
 
                 //Skips white space
-                if(ch == 32)
+                else if(ch == 32)
                 {
                     return getNextToken();
                 }
 
-                if (ch == -1)
+                else if (ch == -1)
                     return null;
         
                 // Special characters
@@ -93,13 +101,14 @@ namespace Parse
                 else if (ch == '"')
                 {
                     int i = 0;
-                    do
+                    ch = In.Read();
+                    while (ch != '"')
                     {
                         buf[i] = (char)ch;
                         ch = In.Read();
                         i++;
-                    } while (ch != '"');
-                    return new StringToken(new String(buf, 0, 0));
+                    } ;
+                    return new StringToken(new String(buf, 0, i));
                 }
 
     
@@ -107,6 +116,12 @@ namespace Parse
                 else if (ch >= '0' && ch <= '9')
                 {
                     int i = ch - '0';
+                    
+//Problem is you can't enter the number '12' it processes and returns 1 then processes and returns 2... hmmm
+                    String huh = i.ToString();
+                    
+                    i = Convert.ToInt32(huh);
+ 
                     // TODO: scan the number and convert it to an integer
 
                     // make sure that the character following the integer
@@ -125,7 +140,7 @@ namespace Parse
                         i++;
                         ch = In.Read();
                     } while (ch >= 48 && ch <= 57 || ch >= 65 && ch <= 90 || ch >= 97 && ch <= 122);
-                    return new IdentToken(new String(buf, 0, 0));
+                    return new IdentToken(new String(buf, 0, i));
                 }
     
                 // Illegal character

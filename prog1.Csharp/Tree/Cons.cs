@@ -27,6 +27,40 @@ namespace Tree
         // parsing up to the interpreter.
         void parseList()
         {
+        	if  (car.isString()) {
+        		String obj = car.getString();
+        		if (obj == "\'") {
+        			form = new Quote();
+        		}
+        	}
+        	else if(car.isSymbol()) {
+        		String symbol = car.getSymbol();
+        		switch (symbol) {
+        			case ("Begin"):
+        				form = new Begin();
+        				break;
+        			case ("Cond"):
+        				form = new Cond();
+        				break;
+        			case ("Define"):
+        				form = new Define();
+        				break;
+        			case ("If"):
+        				form = new If();
+        				break;
+        			case ("Lambda"):
+        				form = new Lambda();
+        				break;
+        			case ("Let"):
+        				form = new Let();
+        				break;
+        			case ("Set"):
+        				form = new Set();
+        				break;
+        			
+        		}
+        	}
+        	
             // TODO: implement this function and any helper functions
             // you might need.
         }
@@ -39,6 +73,20 @@ namespace Tree
         public override void print(int n, bool p)
         {
             form.print(this, n, p);
+        }
+        
+        public virtual bool isPair()   { return true; }
+        
+        
+        public virtual Node getCar() { return car; }
+        public virtual Node getCdr() { return cdr; }
+        public virtual void setCar(Node a) {
+        	car = a;
+        	parseList();
+         }
+         
+        public virtual void setCdr(Node d) {
+        	cdr = d;
         }
     }
 }

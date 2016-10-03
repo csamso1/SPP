@@ -7,9 +7,12 @@ namespace Tree
     public class Quote : Special
     {
         // TODO: Add any fields needed.
+        Boolean closed;
   
         // TODO: Add an appropriate constructor.
-	public Quote() { }
+	public Quote() {
+		//closed = status;
+	 }
 
         public override void print(Node t, int n, bool p)
         {
