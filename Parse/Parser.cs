@@ -6,15 +6,7 @@
 //
 // Parses the language
 //
-//   exp  ->  ( rest
-//         |  #f
-//         |  #t
-//         |  ' exp
-//         |  integer_constant
-//         |  string_constant
-//         |  identifier
-//    rest -> )
-//         |  exp+ [. exp] )
+
 //
 // and builds a parse tree.  Lists of the form (rest) are further
 // `parsed' into regular lists and special forms in the constructor
@@ -32,6 +24,15 @@
 // the parser returns a NULL tree.  In case of a parse error, the
 // parser discards the offending token (which probably was a DOT
 // or an RPAREN) and attempts to continue parsing with the next token.
+//   exp  ->  ( rest
+//         |  #f
+//         |  #t
+//         |  ' exp
+//         |  integer_constant
+//         |  string_constant
+//         |  identifier
+//    rest -> )
+//         |  exp+ [. exp] )
 
 using System;
 using Tokens;
@@ -48,23 +49,20 @@ namespace Parse
         public Node parseExp()
         {
             // TODO: write code for parsing an exp
-            Boolean quoteStatus = true;
+            //bool quoteStatus = true;
             Token t = scanner.getNextToken();
             
             switch (t.getType()) {
             	case TokenType.LPAREN:
-            		return parseRest();
+            		Node lp = parseRest();
+            		return lp;
             	case TokenType.FALSE:
             		return new BoolLit(false);
             	case TokenType.TRUE:
             		return new BoolLit(true);
             	case TokenType.QUOTE:
-            		quoteStatus = !quoteStatus;
-            		if (quoteStatus) {
-            		 	return new Cons(new StringLit("\'"), parseExp());
-            		 } else {
-            			return new Cons(new StringLit("\'2"), parseExp()); 
-            		}
+            		Node dp = parseRest();
+            		return dp;
             	case TokenType.DOT:
             		return new Cons(new StringLit("."), parseExp());
             	case TokenType.INT:
@@ -83,12 +81,14 @@ namespace Parse
         {
             // TODO: write code for parsing a rest
             
-            Scanner letsTryThis = scanner;
-            Token t = letsTryThis.getNextToken();
+//             Scanner letsTryThis = scanner;
+            Token t = scanner.peekNextToken();
            
             if (t.getType() == TokenType.RPAREN)  
             {
-            	return new Nil();
+            	scanner.getNextToken();
+            	Node rp = new Nil();
+            	return rp;
             }
             
             else 

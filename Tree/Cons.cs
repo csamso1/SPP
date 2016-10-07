@@ -67,12 +67,12 @@ namespace Tree
  
         public override void print(int n)
         {
-            form.print(this, n, false);
+            form.print(car, n, false);
         }
 
         public override void print(int n, bool p)
         {
-            form.print(this, n, p);
+            form.print(car, n, p);
         }
         
         public virtual bool isPair()   { return true; }
