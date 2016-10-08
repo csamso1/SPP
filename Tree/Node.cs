@@ -41,7 +41,7 @@ namespace Tree
         public virtual bool isPair()   { return false; }  // Cons
         
         
-        
+        //I ADDED THESE BECAUSE MAYBE WE NEED THEM...  IDK MAN
         public virtual bool getBool()   { return false; }  // BoolLit
         public virtual int getNumber() { return 0; }  // IntLit
         public virtual String getString() { return ""; }  // StringLit

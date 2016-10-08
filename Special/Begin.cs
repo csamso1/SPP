@@ -9,11 +9,12 @@ namespace Tree
         // TODO: Add any fields needed.
  
         // TODO: Add an appropriate constructor.
-	public Begin() { }
+	public Begin(Node a) {
+		print(a, 0, true); }
 
         public override void print(Node t, int n, bool p)
         {
-            // TODO: Implement this function.
+            Console.Write("begin ");
         }
     }
 }

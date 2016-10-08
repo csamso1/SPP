@@ -35,6 +35,7 @@
 //         |  exp+ [. exp] )
 
 using System;
+using System.IO;
 using Tokens;
 using Tree;
 
@@ -51,31 +52,43 @@ namespace Parse
             // TODO: write code for parsing an exp
             //bool quoteStatus = true;
             Token t = scanner.getNextToken();
-            
+            Node lp;
+            if (t == null)
+             { return null; }
+            try {
             switch (t.getType()) {
             	case TokenType.LPAREN:
-            		Node lp = parseRest();
+            		lp = parseRest();
             		return lp;
             	case TokenType.FALSE:
-            		return new BoolLit(false);
+            		lp = new BoolLit(false);
+            		return lp;
             	case TokenType.TRUE:
-            		return new BoolLit(true);
+            		lp = new BoolLit(true);
+            		return lp;
             	case TokenType.QUOTE:
-            		Node dp = parseRest();
-            		return dp;
+            		lp = parseRest();
+            		return lp;
             	case TokenType.DOT:
-            		return new Cons(new StringLit("."), parseExp());
+            		lp = new Cons(new StringLit("."), parseExp());
+            		return lp;
             	case TokenType.INT:
-            		return new IntLit(t.getIntVal());
+            		lp = new IntLit(t.getIntVal());
+            		return lp;
             	case TokenType.STRING:
-            		return new StringLit(t.getStringVal());
+            		lp = new StringLit(t.getStringVal());
+            		return lp;
             	case TokenType.IDENT:
-            		return new Ident(t.getName());
-	            default:
-	            	return null;
-            
+            		lp = new Ident(t.getName());
+            		return lp;
             } 
-            //return null;
+            } catch (IOException e) {
+            Console.Error.WriteLine("IOException: " + e.Message);
+           
+            return parseExp();
+        }
+            lp = new Nil();
+            return null;
   }
         protected Node parseRest()
         {
@@ -83,18 +96,27 @@ namespace Parse
             
 //             Scanner letsTryThis = scanner;
             Token t = scanner.peekNextToken();
-           
+           if (t == null) {
+           return null; }
+           try {
             if (t.getType() == TokenType.RPAREN)  
             {
-            	scanner.getNextToken();
+            	t = scanner.getNextToken();
             	Node rp = new Nil();
             	return rp;
             }
             
             else 
             {
-            	return new Cons(parseExp(), parseRest());
+            	Node car = parseExp();
+            	Node cdr = parseRest();
+            	return new Cons(car, cdr);
             }
+            } catch (IOException e) {
+            Console.Error.WriteLine("IOException: " + e.Message);
+           
+            return parseExp();
+        }
             
             //return null;
         }

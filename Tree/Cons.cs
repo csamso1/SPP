@@ -1,7 +1,7 @@
 // Cons -- Parse tree node class for representing a Cons node
 
 using System;
-
+using System.IO;
 namespace Tree
 {
     public class Cons : Node
@@ -25,41 +25,50 @@ namespace Tree
         // parseList only look at the car for selecting the appropriate
         // object from the Special hierarchy and to leave the rest of
         // parsing up to the interpreter.
-        void parseList()
+        public void parseList()
         {
+        	if (car == null) 
+        	{ return; }
+        	try {
         	if  (car.isString()) {
         		String obj = car.getString();
         		if (obj == "\'") {
-        			form = new Quote();
+        			form = new Quote(car);
         		}
         	}
         	else if(car.isSymbol()) {
         		String symbol = car.getSymbol();
         		switch (symbol) {
         			case ("Begin"):
-        				form = new Begin();
+        				form = new Begin(car);
         				break;
         			case ("Cond"):
-        				form = new Cond();
+        				form = new Cond(car);
         				break;
         			case ("Define"):
-        				form = new Define();
+        				form = new Define(car);
         				break;
         			case ("If"):
-        				form = new If();
+        				form = new If(car);
         				break;
         			case ("Lambda"):
-        				form = new Lambda();
+        				form = new Lambda(car);
         				break;
         			case ("Let"):
-        				form = new Let();
+        				form = new Let(car);
         				break;
         			case ("Set"):
-        				form = new Set();
-        				break;
-        			
+        				form = new Set(car);
+        				break;	
         		}
         	}
+        	else {
+        		form = new Regular(car);
+        	
+        	} } catch (IOException e) {
+            Console.Error.WriteLine("IOException: " + e.Message);
+            return;
+        }
         	
             // TODO: implement this function and any helper functions
             // you might need.
@@ -67,12 +76,12 @@ namespace Tree
  
         public override void print(int n)
         {
-            form.print(car, n, false);
+            form.print(this, n, false);
         }
 
         public override void print(int n, bool p)
         {
-            form.print(car, n, p);
+            form.print(this, n, p);
         }
         
         public virtual bool isPair()   { return true; }

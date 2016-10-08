@@ -33,9 +33,9 @@ Parse
     }
 
     public Token peekNextToken() {
-        TextReader willThisWork = This.In;
-        Token temp = new Token(TokenType.(getNextToken().getType()));
-        In = willThisWork;
+        TextReader willThisWork = this.In;
+        Token temp = getNextToken();
+        this.In = willThisWork;
         return temp;
     }
 
