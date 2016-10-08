@@ -64,7 +64,7 @@ namespace Parse
             	case TokenType.TRUE:
             		return new BoolLit(true);
             	case TokenType.QUOTE:
-            		return parseRest();
+            		return new Cons(new StringLit("'"), parseExp());
             	case TokenType.DOT:
             		return new Cons(new StringLit("."), parseExp());
             	case TokenType.INT:
@@ -92,8 +92,7 @@ namespace Parse
             if (t.getType() == TokenType.RPAREN)  
             {
             	t = scanner.getNextToken();
-            	Node rp = new Nil();
-            	return rp;
+            	return new Nil();
             }
             
             else 
@@ -108,7 +107,7 @@ namespace Parse
             return parseExp();
         }
             
-            //return null;
+            return null;
         }
 
         // TODO: Add any additional methods you might need.

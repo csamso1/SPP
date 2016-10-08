@@ -106,24 +106,23 @@ Parse
                     j = In.Peek();
 
                 };
-
-                    // TODO: scan the number and convert it to an integer
-                // make sure that the character following the integer
-                // is not removed from the input stream
                 return new IntToken(i);
+
+                
             } // Identifiers or ch is some other valid first character for an identifier
             else if (ch >= 'A' && ch <= 'Z' || (ch >= 'a' && ch <= 'z') || ch == '!' || ch >= '$' && ch <= '&' || ch == '/'
                     || ch >= ':' && ch <= '?' || ch == '^' || ch == '_' || ch == '~')
-                  {
+            	{
                 int i = 0;
-                do {
+                while ((ch >= 'A' && ch <= 'Z') || (ch >= 'a' && ch <= 'z') || ch == '!' || (ch >= '$' && ch <= '&') || ch == '/'
+                    	|| ch >= ':' && ch <= '?' || ch == '^' || ch == '_' || ch == '~') {
                     buf[i] = (char) ch;
                     i++;
                     ch = In.Read();
-                } while (ch >= 'A' && ch <= 'Z' || (ch >= 'a' && ch <= 'z') || ch == '!' || ch >= '$' && ch <= '&' || ch == '/'
-                    || ch >= ':' && ch <= '?' || ch == '^' || ch == '_' || ch == '~');
+                	} ;
+                
                 return new IdentToken(new String(buf, 0, i));
-            } // Illegal character
+            	} // Illegal character
             else {
                 Console.Error.WriteLine("Illegal input character '"
                         + (char) ch + '\'');

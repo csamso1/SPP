@@ -9,11 +9,13 @@ namespace Tree
         // TODO: Add any fields needed.
 
         // TODO: Add an appropriate constructor.
-	public Define(Node a) { 
-		print(a, 0, true); }
+	public Define() {
+		Console.Write("made it to define"); 
+		 }
 
         public override void print(Node t, int n, bool p)
         {
+        Console.Write("made it to print"); 
             Console.Write("define ");
         }
     }

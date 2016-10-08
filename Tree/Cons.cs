@@ -31,10 +31,12 @@ namespace Tree
         	{ return; }
         	try {
         	if  (car.isString()) {
-        		String obj = car.getString();
-        		if (obj == "\'") {
-        			form = new Quote(car);
-        		}
+        		
+        		form = new Regular(car);
+        		//String obj = car.getString();
+        		//if (obj == "\'") {
+        		//	form = new Quote(car);
+        		//}
         	}
         	else if(car.isSymbol()) {
         		String symbol = car.getSymbol();
@@ -46,7 +48,7 @@ namespace Tree
         				form = new Cond(car);
         				break;
         			case ("Define"):
-        				form = new Define(car);
+        				form = new Define();
         				break;
         			case ("If"):
         				form = new If(car);
@@ -60,16 +62,20 @@ namespace Tree
         			case ("Set"):
         				form = new Set(car);
         				break;	
+        			default:
+        				form = new Regular(car);
+        				break;
         		}
         	}
         	else {
         		form = new Regular(car);
-        	
-        	} } catch (IOException e) {
+        		} 
+        	} catch (IOException e) {
             Console.Error.WriteLine("IOException: " + e.Message);
             return;
         }
-        print(0);
+        //print(0);
+        form.print(this, 0, true);
         	
             // TODO: implement this function and any helper functions
             // you might need.
@@ -78,13 +84,13 @@ namespace Tree
         public override void print(int n)
         {
         	Console.Write("(");
-            form.print(car, n, true);
+            form.print(this, n, true);
         }
 
         public override void print(int n, bool p)
         {	     
           	Console.Write("(");
-            form.print(car, n, p);
+            form.print(this, n, p);
         }
         
         public virtual bool isPair()   { return true; }
