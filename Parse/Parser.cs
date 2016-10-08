@@ -50,52 +50,42 @@ namespace Parse
         public Node parseExp()
         {
             // TODO: write code for parsing an exp
-            //bool quoteStatus = true;
             Token t = scanner.getNextToken();
-            Node lp;
+
             if (t == null)
              { return null; }
+             
             try {
             switch (t.getType()) {
             	case TokenType.LPAREN:
-            		lp = parseRest();
-            		return lp;
+            		return parseRest();
             	case TokenType.FALSE:
-            		lp = new BoolLit(false);
-            		return lp;
+            		return new BoolLit(false);
             	case TokenType.TRUE:
-            		lp = new BoolLit(true);
-            		return lp;
+            		return new BoolLit(true);
             	case TokenType.QUOTE:
-            		lp = parseRest();
-            		return lp;
+            		return parseRest();
             	case TokenType.DOT:
-            		lp = new Cons(new StringLit("."), parseExp());
-            		return lp;
+            		return new Cons(new StringLit("."), parseExp());
             	case TokenType.INT:
-            		lp = new IntLit(t.getIntVal());
-            		return lp;
+            		return new IntLit(t.getIntVal());
             	case TokenType.STRING:
-            		lp = new StringLit(t.getStringVal());
-            		return lp;
+            		return new StringLit(t.getStringVal());
             	case TokenType.IDENT:
-            		lp = new Ident(t.getName());
-            		return lp;
+            		return new Ident(t.getName());
             } 
             } catch (IOException e) {
             Console.Error.WriteLine("IOException: " + e.Message);
            
             return parseExp();
         }
-            lp = new Nil();
             return null;
   }
         protected Node parseRest()
         {
             // TODO: write code for parsing a rest
             
-//             Scanner letsTryThis = scanner;
-            Token t = scanner.peekNextToken();
+	  	  	Token t = scanner.peekNextToken();
            if (t == null) {
            return null; }
            try {

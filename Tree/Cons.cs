@@ -69,6 +69,7 @@ namespace Tree
             Console.Error.WriteLine("IOException: " + e.Message);
             return;
         }
+        print(0);
         	
             // TODO: implement this function and any helper functions
             // you might need.
@@ -76,12 +77,14 @@ namespace Tree
  
         public override void print(int n)
         {
-            form.print(this, n, false);
+        	Console.Write("(");
+            form.print(car, n, true);
         }
 
         public override void print(int n, bool p)
-        {
-            form.print(this, n, p);
+        {	     
+          	Console.Write("(");
+            form.print(car, n, p);
         }
         
         public virtual bool isPair()   { return true; }
