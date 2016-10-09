@@ -64,7 +64,7 @@ namespace Parse
             	case TokenType.TRUE:
             		return new BoolLit(true);
             	case TokenType.QUOTE:
-            		return new Cons(new StringLit("'"), parseExp());
+            		return new Cons(new StringLit("\'"), parseExp());
             	case TokenType.DOT:
             		return new Cons(new StringLit("."), parseExp());
             	case TokenType.INT:
@@ -77,7 +77,7 @@ namespace Parse
             } catch (IOException e) {
             Console.Error.WriteLine("IOException: " + e.Message);
            
-            return parseExp();
+            return new Nil();
         }
             return null;
   }
@@ -91,15 +91,13 @@ namespace Parse
            try {
             if (t.getType() == TokenType.RPAREN)  
             {
-            	t = scanner.getNextToken();
+            	//t = scanner.getNextToken();
             	return new Nil();
             }
             
             else 
             {
-            	Node car = parseExp();
-            	Node cdr = parseRest();
-            	return new Cons(car, cdr);
+            	return new Cons(parseExp(), parseRest());
             }
             } catch (IOException e) {
             Console.Error.WriteLine("IOException: " + e.Message);
@@ -107,7 +105,7 @@ namespace Parse
             return parseExp();
         }
             
-            return null;
+            return new Nil();
         }
 
         // TODO: Add any additional methods you might need.

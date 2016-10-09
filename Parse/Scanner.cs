@@ -99,11 +99,13 @@ Parse
             } // Integer constants
             else if (ch >= '0' && ch <= '9') {
                 int i = ch - '0';
-                int j = In.Peek();
-                while (j >= '0' && j <= '9') {
-                    ch = In.Read();
+                //int j = In.Peek();
+                ch = In.Read();
+                while (ch >= '0' && ch <= '9') {
                     i = 10 * i + ch - '0';
-                    j = In.Peek();
+                    ch = In.Read();
+                    
+                    //j = In.Peek();
 
                 };
                 return new IntToken(i);

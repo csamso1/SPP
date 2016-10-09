@@ -15,12 +15,11 @@ namespace Tree
         public override void print(Node t, int n, bool p)
         {
      
+     if (t == null) {
+     return; }
         if (t.isPair()) 
         {
-        	Node a = t.getCar();
-        	a.print(0);
-        	Node b = t.getCdr();
-        	b.print(0); 
+        	t.print(0);
         }
         else {
         t.print(0); }

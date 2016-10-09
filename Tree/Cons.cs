@@ -14,7 +14,7 @@ namespace Tree
         {
             car = a;
             cdr = d;
-            parseList();
+            form = parseList();
         }
     
         // parseList() `parses' special forms, constructs an appropriate
@@ -25,72 +25,71 @@ namespace Tree
         // parseList only look at the car for selecting the appropriate
         // object from the Special hierarchy and to leave the rest of
         // parsing up to the interpreter.
-        public void parseList()
+        public Special parseList()
         {
         	if (car == null) 
-        	{ return; }
+        	{ return null; }
         	try {
-        	if  (car.isString()) {
-        		
-        		form = new Regular(car);
-        		//String obj = car.getString();
-        		//if (obj == "\'") {
-        		//	form = new Quote(car);
-        		//}
-        	}
-        	else if(car.isSymbol()) {
-        		String symbol = car.getSymbol();
-        		switch (symbol) {
-        			case ("Begin"):
-        				form = new Begin(car);
-        				break;
-        			case ("Cond"):
-        				form = new Cond(car);
-        				break;
-        			case ("Define"):
-        				form = new Define();
-        				break;
-        			case ("If"):
-        				form = new If(car);
-        				break;
-        			case ("Lambda"):
-        				form = new Lambda(car);
-        				break;
-        			case ("Let"):
-        				form = new Let(car);
-        				break;
-        			case ("Set"):
-        				form = new Set(car);
-        				break;	
-        			default:
-        				form = new Regular(car);
-        				break;
+        	if  (car.isString() || car.isSymbol()) 
+        	{
+        		String obj = ""; 
+        		if (car.isString()) 
+        		{
+        			obj = car.getString();
+        		} 
+        		else 
+        		{
+        			obj = car.getSymbol();
         		}
+        		
+        		switch (obj) 
+        		{
+        			case ("begin"):
+        				return new Begin(car);
+        			case ("cond"):
+        				return new Cond(car);
+        			case ("define"):
+        				return new Define();
+        			case ("if"):
+        				return new If(car);
+        			case ("lambda"):
+        				return new Lambda(car);
+        			case ("let"):
+        				return new Let(car);
+        			case ("set!"):
+        				return new Set(car);
+        			case ("\'"):
+        				return new Quote(car);
+        			default:
+        				return new Regular(car);
+        		}
+        	
         	}
         	else {
         		form = new Regular(car);
         		} 
         	} catch (IOException e) {
             Console.Error.WriteLine("IOException: " + e.Message);
-            return;
+            return null;
         }
-        //print(0);
-        form.print(this, 0, true);
         	
             // TODO: implement this function and any helper functions
             // you might need.
+            return new Regular(car);
         }
  
         public override void print(int n)
         {
-        	Console.Write("(");
-            form.print(this, n, true);
+        	//Console.Write("(");
+            form.print(car, n, true);
+            form.print(cdr, n, false);
         }
 
         public override void print(int n, bool p)
         {	     
-          	Console.Write("(");
-            form.print(this, n, p);
+          	//Console.Write("(");
+            form.print(car, n, p);
+            form.print(cdr, n, p);
         }
         
         public virtual bool isPair()   { return true; }
