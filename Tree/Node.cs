@@ -40,18 +40,13 @@ namespace Tree
         public virtual bool isNull()   { return false; }  // Nil
         public virtual bool isPair()   { return false; }  // Cons
         
-        
-        //I ADDED THESE BECAUSE MAYBE WE NEED THEM...  IDK MAN
         public virtual bool getBool()   { return false; }  // BoolLit
         public virtual int getNumber() { return 0; }  // IntLit
         public virtual String getString() { return ""; }  // StringLit
         public virtual String getSymbol() { return ""; }  // Ident
         public virtual bool getNull()   { return false; }  // Nil
         public virtual bool getPair()   { return false; }  // Cons
-
-        // TODO: Report an error in these default methods and implement them
-        // in class Cons.  After setCar, a Cons cell needs to be `parsed' again
-        // using parseList.
+        
         public virtual Node getCar() { return null; }
         public virtual Node getCdr() { return null; }
         public virtual void setCar(Node a) { }

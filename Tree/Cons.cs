@@ -72,9 +72,6 @@ namespace Tree
             Console.Error.WriteLine("IOException: " + e.Message);
             return null;
         }
-        	
-            // TODO: implement this function and any helper functions
-            // you might need.
             return new Regular();
         }
  

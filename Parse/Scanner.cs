@@ -43,10 +43,6 @@ Parse
         int ch;
 
         try {
-            // It would be more efficient if we'd maintain our own
-            // input buffer and read characters out of that
-            // buffer, but reading individual characters from the
-            // input stream is easier.
             ch = In.Read();
 
             // Skips comments
