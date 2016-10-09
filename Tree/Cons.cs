@@ -44,29 +44,29 @@ namespace Tree
         		
         		switch (obj) 
         		{
-        			case ("begin"):
-        				return new Begin(car);
-        			case ("cond"):
-        				return new Cond(car);
-        			case ("define"):
+        			case "begin":
+        				return new Begin();
+        			case "cond":
+        				return new Cond();
+        			case "define":
         				return new Define();
         			case ("if"):
-        				return new If(car);
+        				return new If();
         			case ("lambda"):
-        				return new Lambda(car);
+        				return new Lambda();
         			case ("let"):
-        				return new Let(car);
+        				return new Let();
         			case ("set!"):
-        				return new Set(car);
+        				return new Set();
         			case ("\'"):
-        				return new Quote(car);
+        				return new Quote();
         			default:
-        				return new Regular(car);
+        				return new Regular();
         		}
         	
         	}
         	else {
-        		form = new Regular(car);
+        		form = new Regular();
         		} 
         	} catch (IOException e) {
             Console.Error.WriteLine("IOException: " + e.Message);
@@ -75,7 +75,7 @@ namespace Tree
         	
             // TODO: implement this function and any helper functions
             // you might need.
-            return new Regular(car);
+            return new Regular();
         }
  
         public override void print(int n)

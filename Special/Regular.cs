@@ -9,8 +9,8 @@ namespace Tree
         // TODO: Add any fields needed.
     
         // TODO: Add an appropriate constructor.
-        public Regular(Node a) { 
-        	print(a, 0, true);}
+        public Regular() { 
+        	}
 
         public override void print(Node t, int n, bool p)
         {

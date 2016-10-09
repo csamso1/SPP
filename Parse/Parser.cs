@@ -64,7 +64,7 @@ namespace Parse
             	case TokenType.TRUE:
             		return new BoolLit(true);
             	case TokenType.QUOTE:
-            		return new Cons(new StringLit("\'"), parseExp());
+            		return new Cons(new Ident("\'"), parseExp());
             	case TokenType.DOT:
             		return new Cons(new StringLit("."), parseExp());
             	case TokenType.INT:

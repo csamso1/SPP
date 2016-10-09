@@ -10,13 +10,13 @@ namespace Tree
         Boolean closed;
   
         // TODO: Add an appropriate constructor.
-	public Quote(Node a) {
-		print(a,0,true);
+	public Quote() {
+		
 	 }
 
         public override void print(Node t, int n, bool p)
         {
-            Console.Write("\' ");
+            Console.Write('\'');
         }
     }
 }
